@@ -1,0 +1,29 @@
+{
+  "name": "process_ico_bounty",
+  "version": "1.0.0",
+  "description": "erc20 stats",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "dotenv": "^5.0.1",
+    "mysql": "^2.15.0",
+    "truffle-hdwallet-provider": "0.0.3",
+    "zeppelin-solidity": "^1.5.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bernardpeh/process_ico_bounty.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bernardpeh/process_ico_bounty/issues"
+  },
+  "homepage": "https://github.com/bernardpeh/process_ico_bounty#readme"
+}
