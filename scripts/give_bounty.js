@@ -1,9 +1,11 @@
 var con = require('./db.js');
 
 // CONFIGURE YOUR ERC20 CONTRACT ADDRESS
-var contract_address = '0xe4a6202402914291cdc0e54c13d1e93bb03883b5'
+var contract_address = '0x3C2fAAe6a419f8A533f3Ab8022f258276b74deb8'
 // CONFIGURE YOUR GAS PRICE IN WEI
-var gasPrice = 1.1 * Math.pow(10,9)
+var gasPrice = 2 * Math.pow(10,9)
+// CONFIGURE TOKEN DECIMALS. CHANGE THIS DEPENDING ON TOKEN DECIMALS
+var token_decimals = Math.pow(10,18)
 
 var token_abi = [
   {
@@ -57,9 +59,9 @@ async function sendTransaction(to_address, token_value) {
   web3.eth.getCoinbase( (err,res) => { from_address = res })
   await sleep(1000)
   web3.eth.getTransactionCount( from_address, (err,res) => { nonce = res })
-  await sleep(1000)
-  let data = contract.transfer.getData(to_address, token_value)
-  await sleep(1000)
+  await sleep(3000)
+  let data = contract.transfer.getData(to_address, token_value * token_decimals)
+  await sleep(2000)
   console.log('from address is '+from_address)
   console.log('contract address is '+contract_address)
   console.log('token value is '+token_value)
@@ -78,7 +80,8 @@ async function sendTransaction(to_address, token_value) {
       console.log('tx id is '+res)
     }
   })
-  await sleep(5000)
+  // this is the crucial part. Waiting for the insertion
+  await sleep(20000)
   // await checkMined(tx_id)
   // onced mined, lets insert into db
   await con.query("update bounty set tx_id='"+tx_id+"' where to_address='"+to_address+"'", async function (error, res, fields) {
