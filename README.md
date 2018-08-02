@@ -21,7 +21,7 @@ cp .env.sample .env
 * update scripts/give_bounty.js params
 
 ```
-truffle exec scripts/give_bounty.js
+truffle exec scripts/give_bounty.js network=xx
 ```
 
 ## Others

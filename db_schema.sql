@@ -8,7 +8,6 @@ CREATE TABLE `bounty` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `to_address` varchar(255) NOT NULL,
   `tx_id` varchar(255) NOT NULL,
-  `token_value` int(11) DEFAULT '120',
+  `token_value` decimal(18,0) DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
