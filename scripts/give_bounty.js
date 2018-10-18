@@ -1,13 +1,17 @@
 var con = require('./db.js');
 
 // CONFIGURE YOUR ERC20 CONTRACT ADDRESS
-var contract_address = '0xxxx'
+// var contract_address = '0xf1f64f6b8e17dd68c1db10b0eed3d2541a6c09ab'
+var contract_address = '0xed340df3c339ab60418bfb7a4557f18cfc2118dd'
 // CONFIGURE YOUR GAS PRICE IN WEI
-var gasPrice = 1.3 * Math.pow(10,9)
+var gasPrice = 2 * Math.pow(10,9)
 // CONFIGURE TOKEN DECIMALS. CHANGE THIS DEPENDING ON TOKEN DECIMALS
-var token_decimals = Math.pow(10,8)
-// update nonce. remember blockchain nonce is n+1. check etherscan for latest nonce
-var current_nonce = 1
+var token_decimals = Math.pow(10,18)
+// CONFIGURE FROM ADDRESS
+var from_address
+web3.eth.getCoinbase( (err,res) => { from_address = res })
+// CONFIGURE NONCE
+var current_nonce = 36
 
 var token_abi = [
   {
@@ -40,7 +44,7 @@ function sleep(ms){
   })
 }
 
-async function checkNonce(from_address) {
+async function checkNonce() {
   let nonce = ''
   // lets query the db. if its not included in a block, ie not yet mined we loop again
   web3.eth.getTransactionCount( from_address, (err,res) => {
@@ -68,14 +72,13 @@ async function checkNonce(from_address) {
 
 async function sendTransaction(id, to_address, token_value) {
 
-  let from_address, nonce, tx_id = ''
+  let nonce, tx_id = ''
 
   let contract = web3.eth.contract(token_abi).at(contract_address);
-  web3.eth.getCoinbase( (err,res) => { from_address = res })
   await sleep(4000)
 
   // if current nonce is not bigger than nonce, we wait
-  await checkNonce(from_address)
+  await checkNonce()
   nonce = current_nonce - 1;
 
   let data = contract.transfer.getData(to_address, token_value * token_decimals)
