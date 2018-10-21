@@ -12,7 +12,7 @@
     "zeppelin-solidity": "^1.12.0"
   },
   "devDependencies": {
-    "truffle-hdwallet-provider": "0.0.6"
+    "truffle-hdwallet-provider": "0.0.5"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
